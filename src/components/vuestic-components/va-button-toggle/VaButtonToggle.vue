@@ -12,7 +12,8 @@
         :large="large"
         :color="buttonColor(option.value)"
         :class="buttonClass(option.value)"
-        @click="changeValue(option.value)">
+        @click="changeValue(option.value)"
+      >
         {{ option.label }}
       </va-button>
     </va-button-group>
@@ -20,75 +21,79 @@
 </template>
 
 <script>
-import VaButtonGroup from '../va-button-group/VaButtonGroup'
-import { getGradientBackground } from '../../../services/color-functions'
-import VaButton from '../va-button/VaButton'
+import VaButtonGroup from "../va-button-group/VaButtonGroup";
+import { getGradientBackground } from "../../../services/color-functions";
+import VaButton from "../va-button/VaButton";
 
 export default {
-  name: 'va-button-toggle',
+  name: "va-button-toggle",
   components: {
     VaButtonGroup,
-    VaButton,
+    VaButton
   },
   props: {
     options: {
-      type: Array,
+      type: Array
     },
     value: {
-      type: [String, Number],
+      type: [String, Number]
     },
     outline: {
-      type: Boolean,
+      type: Boolean
     },
     flat: {
-      type: Boolean,
+      type: Boolean
     },
     disabled: {
-      type: Boolean,
+      type: Boolean
     },
     small: {
-      type: Boolean,
+      type: Boolean
     },
     large: {
-      type: Boolean,
+      type: Boolean
     },
     color: {
       type: String,
-      default: 'primary',
+      default: "primary"
     },
     toggleColor: {
-      type: String,
-    },
+      type: String
+    }
   },
   methods: {
-    buttonColor (buttonValue) {
-      return buttonValue === this.value && this.toggleColor ? this.toggleColor : this.color
+    buttonColor(buttonValue) {
+      return buttonValue === this.value && this.toggleColor
+        ? this.toggleColor
+        : this.color;
     },
-    buttonStyle (buttonValue) {
+    buttonStyle(buttonValue) {
       if (buttonValue !== this.value) {
-        return {}
+        return {};
       }
 
       if (this.outline || this.flat) {
         return {
-          backgroundColor: this.$themes[this.toggleColor ? this.toggleColor : this.color],
-          color: '#ffffff',
-        }
+          backgroundColor: this.$themes[
+            this.toggleColor ? this.toggleColor : this.color
+          ],
+          color: "#3a3838"
+        };
       } else {
         return {
           backgroundColor: getGradientBackground(this.$themes[this.color]),
-          filter: 'brightness(85%)',
-        }
+          filter: "brightness(85%)"
+        };
       }
     },
-    buttonClass (buttonValue) {
+    buttonClass(buttonValue) {
       return {
-        'va-button--active': buttonValue === this.value,
-      }
+        "va-button--active": buttonValue === this.value
+      };
     },
-    changeValue (value) {
-      this.$emit('input', value)
-    },
-  },
-}
+    changeValue(value) {
+      this.$emit("input", value);
+    }
+  }
+};
 </script>
